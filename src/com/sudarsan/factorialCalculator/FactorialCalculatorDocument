@@ -1,0 +1,27 @@
+Key Concepts in the Code:
+Single-threaded Version (factorialSingleThread): Computes the factorial by multiplying all numbers from 1 to n sequentially.
+Multithreaded Version (factorialMultiThread):
+Divides the range [1, n] into threadCount sub-ranges.
+Each thread computes the factorial for its sub-range.
+Results from all threads are combined by multiplying them together.
+Callable Tasks: Each thread is assigned a task (FactorialTask) to compute the product of a range of numbers.
+Timing: The execution time of both versions is measured using System.nanoTime().
+First 10 Digits: After computing the factorial, the first 10 digits of the result are printed for verification.
+Performance Considerations:
+Small n: For small values of n, the overhead of creating and managing threads might outweigh the benefits of parallelism, making the single-threaded version faster.
+Large n: For larger values of n (e.g., 1000 or more), the multithreaded version should show performance gains because the computation is distributed across multiple cores.
+Thread Management Overhead: If n is small or if there are too many threads, thread management overhead might slow down the multithreaded version.
+Optimal threadCount: A good rule of thumb is to use as many threads as there are available CPU cores, but this can vary depending on the workload.
+Best Practices:
+Use BigInteger: For large factorials, BigInteger is essential due to the large size of the numbers involved.
+Thread Pooling (Executors): Managing threads using a thread pool (e.g., Executors.newFixedThreadPool()) is more efficient than creating individual threads manually.
+Limit Thread Count: Too many threads can lead to overhead from context switching. Keep the number of threads around the number of CPU cores.
+Conclusion:
+For large enough values of n, the multithreaded version is expected to be faster due to parallelism. However, for small n, the overhead of creating and managing threads can make the single-threaded version more efficient. The actual performance gain depends on n, the number of threads, and system characteristics like the number of CPU cores.
+
+Possible Reasons for Performance Differences:
+Small n: For small n, thread creation and coordination overhead can outweigh the benefits of parallelism.
+Thread Management Overhead: Too many threads can lead to context switching and additional overhead, which can slow down the multithreaded version.
+Execution Environment: In certain environments (e.g., online coding platforms or environments with limited CPU resources), the performance gains from threading may not be noticeable due to shared resources or thread restrictions.
+Task Granularity: If the chunks of work given to each thread are too small, the overhead of managing the threads may dominate the actual computation time.
+By adjusting the value of n (e.g., testing for n = 10, 100, 1000, 10000), you can observe the shift where multithreading begins to outperform the single-threaded approach.
